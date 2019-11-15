@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Users = require('./auth-model');
 
-router.post('/register', validateUserBody, (req, res) => {
+router.post('/register', validateUserBody, (req, res, next) => {
   // implement registration
   const { username, password } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 11);
@@ -12,7 +12,7 @@ router.post('/register', validateUserBody, (req, res) => {
   }).catch(next);
 });
 
-router.post('/login', validateUserBody, (req, res) => {
+router.post('/login', validateUserBody, (req, res, next) => {
   // implement login
   const { username, password } = req.body;
   Users.getUser({ username }).then(user => {
